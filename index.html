@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Renew Recharge Tracker - Pure Renewals Only</title>
+    <title>Renew Recharge Tracker - With BU Code</title>
     <style>
         * {
             margin: 0;
@@ -20,11 +20,10 @@
         }
 
         .container {
-            max-width: 1400px;
+            max-width: 1500px;
             margin: 0 auto;
         }
 
-        /* Header */
         .header {
             text-align: center;
             margin-bottom: 30px;
@@ -40,7 +39,6 @@
             color: #5f6368;
         }
 
-        /* Upload Cards */
         .upload-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -53,7 +51,6 @@
             border-radius: 16px;
             padding: 24px;
             box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-            transition: all 0.3s;
         }
 
         .upload-card h3 {
@@ -67,7 +64,6 @@
             padding: 32px;
             text-align: center;
             cursor: pointer;
-            transition: all 0.3s;
             background: #fafafa;
         }
 
@@ -97,7 +93,6 @@
             color: #c5221f;
         }
 
-        /* Stats Bar */
         .stats-bar {
             display: flex;
             gap: 20px;
@@ -118,7 +113,6 @@
             font-size: 0.8rem;
             color: #5f6368;
             text-transform: uppercase;
-            letter-spacing: 0.5px;
         }
 
         .stat-value {
@@ -127,7 +121,6 @@
             color: #1a73e8;
         }
 
-        /* Controls */
         .controls {
             background: white;
             border-radius: 16px;
@@ -160,7 +153,6 @@
             border-radius: 8px;
             cursor: pointer;
             font-weight: 500;
-            transition: background 0.2s;
         }
 
         .btn:hover {
@@ -185,7 +177,6 @@
             background: #0d5a28;
         }
 
-        /* Results Table */
         .results-card {
             background: white;
             border-radius: 16px;
@@ -200,7 +191,7 @@
 
         .table-wrapper {
             overflow-x: auto;
-            max-height: 500px;
+            max-height: 550px;
             overflow-y: auto;
         }
 
@@ -223,6 +214,7 @@
             color: #5f6368;
             position: sticky;
             top: 0;
+            z-index: 10;
         }
 
         .renew-badge {
@@ -238,6 +230,17 @@
         .amount {
             font-weight: 600;
             color: #137333;
+        }
+
+        .bu-code {
+            font-family: monospace;
+            font-weight: 600;
+            color: #e8710a;
+            background: #fff3e0;
+            padding: 4px 8px;
+            border-radius: 6px;
+            display: inline-block;
+            font-size: 0.8rem;
         }
 
         .empty-state {
@@ -261,11 +264,10 @@
 <body>
     <div class="container">
         <div class="header">
-            <h1>🔄 Renew Recharge Tracker</h1>
-            <p>Only shows actual renew recharges that match your price list</p>
+            <h1>🔄 Renew Recharge Tracker with BU Code</h1>
+            <p>Upload Churn CSV + Revenue CSV → See only valid renew recharges with Dealer BU Code</p>
         </div>
 
-        <!-- Upload Section -->
         <div class="upload-grid">
             <div class="upload-card">
                 <h3>📁 1. Churn Customers</h3>
@@ -273,7 +275,8 @@
                     <input type="file" id="churnInput" accept=".csv" onchange="loadChurnData(this)">
                     <div style="font-size: 2rem;">📊</div>
                     <div>Upload Churn CSV</div>
-                    <div style="font-size: 0.75rem; margin-top: 8px;">Requires: SerialNumber2 column</div>
+                    <div style="font-size: 0.75rem; margin-top: 8px;">Requires: SerialNumber2, BU Code (ColonialLife,
+                        SubDealer, etc.)</div>
                 </div>
                 <div id="churnStatus" class="file-status" style="display: none;"></div>
             </div>
@@ -290,7 +293,6 @@
             </div>
         </div>
 
-        <!-- Stats -->
         <div class="stats-bar" id="statsBar" style="display: none;">
             <div class="stat">
                 <div class="stat-label">Total Churned</div>
@@ -305,12 +307,11 @@
                 <div class="stat-value" id="validRenewals" style="color:#137333;">0</div>
             </div>
             <div class="stat">
-                <div class="stat-label">❌ Invalid/Other Charges</div>
+                <div class="stat-label">❌ Invalid Charges</div>
                 <div class="stat-value" id="invalidCharges" style="color:#c5221f;">0</div>
             </div>
         </div>
 
-        <!-- Controls -->
         <div class="controls" id="controls" style="display: none;">
             <label>📅 Filter by Date:</label>
             <input type="date" id="dateFilter" onchange="filterByDate()">
@@ -319,7 +320,6 @@
             <button class="btn btn-green" onclick="exportToCSV()" style="margin-left: auto;">📥 Export Renewals</button>
         </div>
 
-        <!-- Results -->
         <div class="results-card" id="resultsCard" style="display: none;">
             <h3>✅ Valid Renew Recharges <span id="resultCount" style="font-size: 0.9rem;"></span></h3>
             <div class="table-wrapper">
@@ -329,6 +329,7 @@
                             <th>S.N.</th>
                             <th>Customer ID</th>
                             <th>Customer Name</th>
+                            <th>BU Code (Dealer)</th>
                             <th>Recharge Date</th>
                             <th>Package</th>
                             <th>Amount (NPR)</th>
@@ -338,7 +339,7 @@
                     </thead>
                     <tbody id="tableBody">
                         <tr>
-                            <td colspan="8" class="empty-state">Upload both files to see renew recharges</td>
+                            <td colspan="9" class="empty-state">Upload both files to see renew recharges</td>
                         </tr>
                     </tbody>
                 </table>
@@ -348,32 +349,19 @@
 
     <script>
         // ============================================================
-        // COMPLETE RENEW PRICE LIST (Only these amounts are valid renewals)
+        // COMPLETE RENEW PRICE LIST (64 valid renew amounts)
         // ============================================================
         const VALID_RENEW_AMOUNTS = new Set([
-            // Residential Net Only
-            1000, 2700, 4800, 6999,   // 50 Mbps
-            1200, 2950, 5250, 8500,   // 100 Mbps
-            1450, 3625, 6725, 11500,  // 200 Mbps
-            1600, 4250, 8181, 13550,  // 300 Mbps
-            // Residential DTH Combo
-            1169, 3207, 5814, 9027,   // 50 Mbps
-            1369, 3457, 6264, 10528,  // 100 Mbps
-            1619, 4132, 7739, 13528,  // 200 Mbps
-            1769, 4757, 9195, 15578,  // 300 Mbps
-            // Residential IPTV Combo
-            1170, 3210, 5820, 9039,   // 50 Mbps
-            1370, 3460, 6270, 10540,  // 100 Mbps
-            1620, 4135, 7745, 13540,  // 200 Mbps
-            1770, 4760, 9201, 15590,  // 300 Mbps
-            // Residential Triple Combo
-            1339, 3717, 6834, 11067,  // 50 Mbps
-            1539, 3967, 7284, 12568,  // 100 Mbps
-            1789, 4642, 8759, 15568,  // 200 Mbps
-            1939, 5267, 10215, 17618  // 300 Mbps
+            1000, 2700, 4800, 6999, 1200, 2950, 5250, 8500,
+            1450, 3625, 6725, 11500, 1600, 4250, 8181, 13550,
+            1169, 3207, 5814, 9027, 1369, 3457, 6264, 10528,
+            1619, 4132, 7739, 13528, 1769, 4757, 9195, 15578,
+            1170, 3210, 5820, 9039, 1370, 3460, 6270, 10540,
+            1620, 4135, 7745, 13540, 1770, 4760, 9201, 15590,
+            1339, 3717, 6834, 11067, 1539, 3967, 7284, 12568,
+            1789, 4642, 8759, 15568, 1939, 5267, 10215, 17618
         ]);
 
-        // Map amount to plan description
         const PLAN_MAP = {
             1000: "50 Mbps - 1M", 2700: "50 Mbps - 3M", 4800: "50 Mbps - 6M", 6999: "50 Mbps - 12M",
             1200: "100 Mbps - 1M", 2950: "100 Mbps - 3M", 5250: "100 Mbps - 6M", 8500: "100 Mbps - 12M",
@@ -393,8 +381,8 @@
             1939: "Triple 300 Mbps - 1M", 5267: "Triple 300 Mbps - 3M", 10215: "Triple 300 Mbps - 6M", 17618: "Triple 300 Mbps - 12M"
         };
 
-        let churnData = [];
-        let revenueData = [];
+        let churnData = [];      // { id, name, buCode }
+        let revenueData = [];    // { id, date, package, amount }
         let currentFilterDate = "";
 
         function parseCSV(text) {
@@ -402,7 +390,21 @@
             const lines = text.split(/\r?\n/);
             for (let i = 0; i < lines.length; i++) {
                 if (lines[i].trim() === "") continue;
-                const row = lines[i].split(',').map(cell => cell.trim().replace(/^"|"$/g, ''));
+                // Handle quoted cells properly
+                const row = [];
+                let inQuote = false;
+                let cell = "";
+                for (let char of lines[i]) {
+                    if (char === '"') {
+                        inQuote = !inQuote;
+                    } else if (char === ',' && !inQuote) {
+                        row.push(cell.trim());
+                        cell = "";
+                    } else {
+                        cell += char;
+                    }
+                }
+                row.push(cell.trim());
                 rows.push(row);
             }
             return rows;
@@ -418,6 +420,7 @@
                     const rows = parseCSV(e.target.result);
                     const headers = rows[0];
 
+                    // Find SerialNumber2 (Customer ID)
                     let idIndex = headers.findIndex(h => h && h.toLowerCase().includes('serialnumber2'));
                     if (idIndex === -1) {
                         idIndex = headers.findIndex(h => h && (h.toLowerCase().includes('customerid') || h.toLowerCase().includes('serial')));
@@ -427,6 +430,17 @@
                         throw new Error(`Column 'SerialNumber2' not found. Headers: ${headers.join(', ')}`);
                     }
 
+                    // Find BU Code column (look for: bu, bucode, dealer, subdealer, colonial, etc.)
+                    let buIndex = headers.findIndex(h => {
+                        const lower = h.toLowerCase();
+                        return lower.includes('bu') ||
+                            lower.includes('bucode') ||
+                            lower.includes('dealer') ||
+                            lower.includes('subdealer') ||
+                            lower.includes('colonial');
+                    });
+
+                    // Find customer name column
                     let nameIndex = headers.findIndex(h => h && h.toLowerCase().includes('name'));
 
                     churnData = [];
@@ -434,14 +448,15 @@
                         if (rows[i][idIndex] && rows[i][idIndex].trim()) {
                             churnData.push({
                                 id: rows[i][idIndex].trim(),
-                                name: nameIndex !== -1 ? (rows[i][nameIndex] || '').trim() : ''
+                                name: nameIndex !== -1 ? (rows[i][nameIndex] || '').trim() : '',
+                                buCode: buIndex !== -1 && rows[i][buIndex] ? rows[i][buIndex].trim() : ''
                             });
                         }
                     }
 
                     document.getElementById('churnStatus').style.display = 'block';
                     document.getElementById('churnStatus').className = 'file-status success';
-                    document.getElementById('churnStatus').innerHTML = `✅ ${churnData.length} churned customers loaded`;
+                    document.getElementById('churnStatus').innerHTML = `✅ ${churnData.length} churned customers loaded | BU Code column: ${buIndex !== -1 ? 'Found ✓' : 'Not found (will show blank)'}`;
 
                     updateUI();
                 } catch (err) {
@@ -476,9 +491,25 @@
                     for (let i = 1; i < rows.length; i++) {
                         if (rows[i][idIndex] && rows[i][idIndex].trim()) {
                             let amount = parseFloat(rows[i][amountIndex]) || 0;
+                            let dateStr = rows[i][dateIndex] ? rows[i][dateIndex].trim() : '';
+                            let parsedDate = null;
+
+                            // Try to parse date
+                            if (dateStr) {
+                                parsedDate = new Date(dateStr);
+                                if (isNaN(parsedDate.getTime())) {
+                                    // Try alternative format
+                                    let parts = dateStr.split(/[-/]/);
+                                    if (parts.length === 3) {
+                                        parsedDate = new Date(parts[0], parts[1] - 1, parts[2]);
+                                    }
+                                }
+                            }
+
                             revenueData.push({
                                 id: rows[i][idIndex].trim(),
-                                date: rows[i][dateIndex] ? rows[i][dateIndex].trim() : '',
+                                date: parsedDate,
+                                dateStr: dateStr,
                                 package: rows[i][pkgIndex] ? rows[i][pkgIndex].trim() : '',
                                 amount: amount
                             });
@@ -500,34 +531,34 @@
         }
 
         function getValidRenewals() {
-            const churnIds = new Set(churnData.map(c => c.id));
+            const churnMap = new Map();
+            churnData.forEach(c => {
+                churnMap.set(c.id, c);
+            });
 
             return revenueData.filter(r => {
                 // Must be churned customer
-                if (!churnIds.has(r.id)) return false;
+                if (!churnMap.has(r.id)) return false;
                 // Must be valid renew amount
                 if (!VALID_RENEW_AMOUNTS.has(r.amount)) return false;
                 // Apply date filter if set
-                if (currentFilterDate) {
-                    try {
-                        const recordDate = new Date(r.date);
-                        const filterDate = new Date(currentFilterDate);
-                        if (recordDate.toDateString() !== filterDate.toDateString()) return false;
-                    } catch (e) {
-                        return false;
-                    }
+                if (currentFilterDate && r.date) {
+                    const filterDate = new Date(currentFilterDate);
+                    if (r.date.toDateString() !== filterDate.toDateString()) return false;
                 }
                 return true;
-            });
+            }).map(r => ({
+                ...r,
+                customer: churnMap.get(r.id)
+            }));
         }
 
         function getInvalidCharges() {
-            const churnIds = new Set(churnData.map(c => c.id));
-
-            return revenueData.filter(r => {
-                if (!churnIds.has(r.id)) return false;
-                return !VALID_RENEW_AMOUNTS.has(r.amount);
+            const churnMap = new Map();
+            churnData.forEach(c => {
+                churnMap.set(c.id, c);
             });
+            return revenueData.filter(r => churnMap.has(r.id) && !VALID_RENEW_AMOUNTS.has(r.amount));
         }
 
         function updateUI() {
@@ -558,20 +589,22 @@
             document.getElementById('resultCount').innerHTML = `(${renewals.length} renewals)`;
 
             if (renewals.length === 0) {
-                tbody.innerHTML = '<tr><td colspan="8" class="empty-state">No valid renew recharges found for the selected criteria</td></tr>';
+                tbody.innerHTML = '<tr><td colspan="9" class="empty-state">No valid renew recharges found for the selected criteria</td></tr>';
                 return;
             }
 
             let html = '';
             renewals.forEach((renewal, idx) => {
-                const customer = churnData.find(c => c.id === renewal.id);
                 const plan = PLAN_MAP[renewal.amount] || "Renewal";
+                const buCode = renewal.customer.buCode || '-';
+                const displayDate = renewal.date ? renewal.date.toISOString().split('T')[0] : renewal.dateStr;
 
                 html += `<tr>
                     <td>${idx + 1}</td>
                     <td><strong>${renewal.id}</strong></td>
-                    <td>${customer ? customer.name : '-'}</td>
-                    <td>${renewal.date}</td>
+                    <td>${renewal.customer.name || '-'}</td>
+                    <td><span class="bu-code">${buCode}</span></td>
+                    <td>${displayDate || '-'}</td>
                     <td style="max-width: 250px; word-break: break-word;">${renewal.package || '-'}</td>
                     <td class="amount">NPR ${renewal.amount.toLocaleString()}</td>
                     <td><span class="renew-badge">${plan}</span></td>
@@ -602,18 +635,20 @@
                 return;
             }
 
-            const headers = ['S.N.', 'Customer ID', 'Customer Name', 'Recharge Date', 'Package', 'Amount (NPR)', 'Plan', 'Status'];
+            const headers = ['S.N.', 'Customer ID', 'Customer Name', 'BU Code (Dealer)', 'Recharge Date', 'Package', 'Amount (NPR)', 'Plan', 'Status'];
             const rows = [headers];
 
             renewals.forEach((renewal, idx) => {
-                const customer = churnData.find(c => c.id === renewal.id);
                 const plan = PLAN_MAP[renewal.amount] || "Renewal";
+                const buCode = renewal.customer.buCode || '';
+                const displayDate = renewal.date ? renewal.date.toISOString().split('T')[0] : renewal.dateStr;
 
                 rows.push([
                     idx + 1,
                     renewal.id,
-                    customer ? customer.name : '',
-                    renewal.date,
+                    renewal.customer.name || '',
+                    buCode,
+                    displayDate || '',
                     renewal.package || '',
                     renewal.amount,
                     plan,
