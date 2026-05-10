@@ -1,0 +1,636 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Renew Recharge Tracker - Pure Renewals Only</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #f0f2f5;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        /* Header */
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .header h1 {
+            font-size: 2rem;
+            color: #1a73e8;
+            margin-bottom: 8px;
+        }
+
+        .header p {
+            color: #5f6368;
+        }
+
+        /* Upload Cards */
+        .upload-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .upload-card {
+            background: white;
+            border-radius: 16px;
+            padding: 24px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s;
+        }
+
+        .upload-card h3 {
+            margin-bottom: 16px;
+            color: #202124;
+        }
+
+        .drop-zone {
+            border: 2px dashed #dadce0;
+            border-radius: 12px;
+            padding: 32px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s;
+            background: #fafafa;
+        }
+
+        .drop-zone:hover {
+            border-color: #1a73e8;
+            background: #f1f3f4;
+        }
+
+        .drop-zone input {
+            display: none;
+        }
+
+        .file-status {
+            margin-top: 12px;
+            padding: 10px;
+            border-radius: 8px;
+            font-size: 0.85rem;
+        }
+
+        .file-status.success {
+            background: #e6f4ea;
+            color: #137333;
+        }
+
+        .file-status.error {
+            background: #fce8e6;
+            color: #c5221f;
+        }
+
+        /* Stats Bar */
+        .stats-bar {
+            display: flex;
+            gap: 20px;
+            margin-bottom: 24px;
+            flex-wrap: wrap;
+        }
+
+        .stat {
+            background: white;
+            border-radius: 12px;
+            padding: 16px 24px;
+            flex: 1;
+            min-width: 150px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+
+        .stat-label {
+            font-size: 0.8rem;
+            color: #5f6368;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .stat-value {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: #1a73e8;
+        }
+
+        /* Controls */
+        .controls {
+            background: white;
+            border-radius: 16px;
+            padding: 16px 20px;
+            margin-bottom: 24px;
+            display: flex;
+            gap: 16px;
+            flex-wrap: wrap;
+            align-items: center;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+
+        .controls label {
+            font-weight: 500;
+            color: #202124;
+        }
+
+        .controls input {
+            padding: 8px 12px;
+            border: 1px solid #dadce0;
+            border-radius: 8px;
+            font-size: 0.9rem;
+        }
+
+        .btn {
+            background: #1a73e8;
+            color: white;
+            border: none;
+            padding: 8px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: background 0.2s;
+        }
+
+        .btn:hover {
+            background: #1557b0;
+        }
+
+        .btn-outline {
+            background: white;
+            color: #1a73e8;
+            border: 1px solid #1a73e8;
+        }
+
+        .btn-outline:hover {
+            background: #e8f0fe;
+        }
+
+        .btn-green {
+            background: #137333;
+        }
+
+        .btn-green:hover {
+            background: #0d5a28;
+        }
+
+        /* Results Table */
+        .results-card {
+            background: white;
+            border-radius: 16px;
+            padding: 20px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+
+        .results-card h3 {
+            margin-bottom: 16px;
+            color: #202124;
+        }
+
+        .table-wrapper {
+            overflow-x: auto;
+            max-height: 500px;
+            overflow-y: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.85rem;
+        }
+
+        th,
+        td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #e8eaed;
+        }
+
+        th {
+            background: #f8f9fa;
+            font-weight: 600;
+            color: #5f6368;
+            position: sticky;
+            top: 0;
+        }
+
+        .renew-badge {
+            background: #1a73e8;
+            color: white;
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 500;
+            display: inline-block;
+        }
+
+        .amount {
+            font-weight: 600;
+            color: #137333;
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 60px;
+            color: #5f6368;
+        }
+
+        @media (max-width: 768px) {
+            .upload-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .stat-value {
+                font-size: 1.4rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🔄 Renew Recharge Tracker</h1>
+            <p>Only shows actual renew recharges that match your price list</p>
+        </div>
+
+        <!-- Upload Section -->
+        <div class="upload-grid">
+            <div class="upload-card">
+                <h3>📁 1. Churn Customers</h3>
+                <div class="drop-zone" onclick="document.getElementById('churnInput').click()">
+                    <input type="file" id="churnInput" accept=".csv" onchange="loadChurnData(this)">
+                    <div style="font-size: 2rem;">📊</div>
+                    <div>Upload Churn CSV</div>
+                    <div style="font-size: 0.75rem; margin-top: 8px;">Requires: SerialNumber2 column</div>
+                </div>
+                <div id="churnStatus" class="file-status" style="display: none;"></div>
+            </div>
+
+            <div class="upload-card">
+                <h3>💰 2. Revenue Data</h3>
+                <div class="drop-zone" onclick="document.getElementById('revenueInput').click()">
+                    <input type="file" id="revenueInput" accept=".csv" onchange="loadRevenueData(this)">
+                    <div style="font-size: 2rem;">💳</div>
+                    <div>Upload Revenue CSV</div>
+                    <div style="font-size: 0.75rem; margin-top: 8px;">Requires: CustomerId, RechargeDate, Revenue</div>
+                </div>
+                <div id="revenueStatus" class="file-status" style="display: none;"></div>
+            </div>
+        </div>
+
+        <!-- Stats -->
+        <div class="stats-bar" id="statsBar" style="display: none;">
+            <div class="stat">
+                <div class="stat-label">Total Churned</div>
+                <div class="stat-value" id="totalChurned">0</div>
+            </div>
+            <div class="stat">
+                <div class="stat-label">Total Revenue Records</div>
+                <div class="stat-value" id="totalRevenue">0</div>
+            </div>
+            <div class="stat">
+                <div class="stat-label">✅ Valid Renewals</div>
+                <div class="stat-value" id="validRenewals" style="color:#137333;">0</div>
+            </div>
+            <div class="stat">
+                <div class="stat-label">❌ Invalid/Other Charges</div>
+                <div class="stat-value" id="invalidCharges" style="color:#c5221f;">0</div>
+            </div>
+        </div>
+
+        <!-- Controls -->
+        <div class="controls" id="controls" style="display: none;">
+            <label>📅 Filter by Date:</label>
+            <input type="date" id="dateFilter" onchange="filterByDate()">
+            <button class="btn" onclick="filterByDate()">Apply Filter</button>
+            <button class="btn btn-outline" onclick="resetFilter()">Show All</button>
+            <button class="btn btn-green" onclick="exportToCSV()" style="margin-left: auto;">📥 Export Renewals</button>
+        </div>
+
+        <!-- Results -->
+        <div class="results-card" id="resultsCard" style="display: none;">
+            <h3>✅ Valid Renew Recharges <span id="resultCount" style="font-size: 0.9rem;"></span></h3>
+            <div class="table-wrapper">
+                <table id="resultsTable">
+                    <thead>
+                        <tr>
+                            <th>S.N.</th>
+                            <th>Customer ID</th>
+                            <th>Customer Name</th>
+                            <th>Recharge Date</th>
+                            <th>Package</th>
+                            <th>Amount (NPR)</th>
+                            <th>Plan</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tableBody">
+                        <tr>
+                            <td colspan="8" class="empty-state">Upload both files to see renew recharges</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // ============================================================
+        // COMPLETE RENEW PRICE LIST (Only these amounts are valid renewals)
+        // ============================================================
+        const VALID_RENEW_AMOUNTS = new Set([
+            // Residential Net Only
+            1000, 2700, 4800, 6999,   // 50 Mbps
+            1200, 2950, 5250, 8500,   // 100 Mbps
+            1450, 3625, 6725, 11500,  // 200 Mbps
+            1600, 4250, 8181, 13550,  // 300 Mbps
+            // Residential DTH Combo
+            1169, 3207, 5814, 9027,   // 50 Mbps
+            1369, 3457, 6264, 10528,  // 100 Mbps
+            1619, 4132, 7739, 13528,  // 200 Mbps
+            1769, 4757, 9195, 15578,  // 300 Mbps
+            // Residential IPTV Combo
+            1170, 3210, 5820, 9039,   // 50 Mbps
+            1370, 3460, 6270, 10540,  // 100 Mbps
+            1620, 4135, 7745, 13540,  // 200 Mbps
+            1770, 4760, 9201, 15590,  // 300 Mbps
+            // Residential Triple Combo
+            1339, 3717, 6834, 11067,  // 50 Mbps
+            1539, 3967, 7284, 12568,  // 100 Mbps
+            1789, 4642, 8759, 15568,  // 200 Mbps
+            1939, 5267, 10215, 17618  // 300 Mbps
+        ]);
+
+        // Map amount to plan description
+        const PLAN_MAP = {
+            1000: "50 Mbps - 1M", 2700: "50 Mbps - 3M", 4800: "50 Mbps - 6M", 6999: "50 Mbps - 12M",
+            1200: "100 Mbps - 1M", 2950: "100 Mbps - 3M", 5250: "100 Mbps - 6M", 8500: "100 Mbps - 12M",
+            1450: "200 Mbps - 1M", 3625: "200 Mbps - 3M", 6725: "200 Mbps - 6M", 11500: "200 Mbps - 12M",
+            1600: "300 Mbps - 1M", 4250: "300 Mbps - 3M", 8181: "300 Mbps - 6M", 13550: "300 Mbps - 12M",
+            1169: "DTH 50 Mbps - 1M", 3207: "DTH 50 Mbps - 3M", 5814: "DTH 50 Mbps - 6M", 9027: "DTH 50 Mbps - 12M",
+            1369: "DTH 100 Mbps - 1M", 3457: "DTH 100 Mbps - 3M", 6264: "DTH 100 Mbps - 6M", 10528: "DTH 100 Mbps - 12M",
+            1619: "DTH 200 Mbps - 1M", 4132: "DTH 200 Mbps - 3M", 7739: "DTH 200 Mbps - 6M", 13528: "DTH 200 Mbps - 12M",
+            1769: "DTH 300 Mbps - 1M", 4757: "DTH 300 Mbps - 3M", 9195: "DTH 300 Mbps - 6M", 15578: "DTH 300 Mbps - 12M",
+            1170: "IPTV 50 Mbps - 1M", 3210: "IPTV 50 Mbps - 3M", 5820: "IPTV 50 Mbps - 6M", 9039: "IPTV 50 Mbps - 12M",
+            1370: "IPTV 100 Mbps - 1M", 3460: "IPTV 100 Mbps - 3M", 6270: "IPTV 100 Mbps - 6M", 10540: "IPTV 100 Mbps - 12M",
+            1620: "IPTV 200 Mbps - 1M", 4135: "IPTV 200 Mbps - 3M", 7745: "IPTV 200 Mbps - 6M", 13540: "IPTV 200 Mbps - 12M",
+            1770: "IPTV 300 Mbps - 1M", 4760: "IPTV 300 Mbps - 3M", 9201: "IPTV 300 Mbps - 6M", 15590: "IPTV 300 Mbps - 12M",
+            1339: "Triple 50 Mbps - 1M", 3717: "Triple 50 Mbps - 3M", 6834: "Triple 50 Mbps - 6M", 11067: "Triple 50 Mbps - 12M",
+            1539: "Triple 100 Mbps - 1M", 3967: "Triple 100 Mbps - 3M", 7284: "Triple 100 Mbps - 6M", 12568: "Triple 100 Mbps - 12M",
+            1789: "Triple 200 Mbps - 1M", 4642: "Triple 200 Mbps - 3M", 8759: "Triple 200 Mbps - 6M", 15568: "Triple 200 Mbps - 12M",
+            1939: "Triple 300 Mbps - 1M", 5267: "Triple 300 Mbps - 3M", 10215: "Triple 300 Mbps - 6M", 17618: "Triple 300 Mbps - 12M"
+        };
+
+        let churnData = [];
+        let revenueData = [];
+        let currentFilterDate = "";
+
+        function parseCSV(text) {
+            const rows = [];
+            const lines = text.split(/\r?\n/);
+            for (let i = 0; i < lines.length; i++) {
+                if (lines[i].trim() === "") continue;
+                const row = lines[i].split(',').map(cell => cell.trim().replace(/^"|"$/g, ''));
+                rows.push(row);
+            }
+            return rows;
+        }
+
+        function loadChurnData(input) {
+            const file = input.files[0];
+            if (!file) return;
+
+            const reader = new FileReader();
+            reader.onload = function (e) {
+                try {
+                    const rows = parseCSV(e.target.result);
+                    const headers = rows[0];
+
+                    let idIndex = headers.findIndex(h => h && h.toLowerCase().includes('serialnumber2'));
+                    if (idIndex === -1) {
+                        idIndex = headers.findIndex(h => h && (h.toLowerCase().includes('customerid') || h.toLowerCase().includes('serial')));
+                    }
+
+                    if (idIndex === -1) {
+                        throw new Error(`Column 'SerialNumber2' not found. Headers: ${headers.join(', ')}`);
+                    }
+
+                    let nameIndex = headers.findIndex(h => h && h.toLowerCase().includes('name'));
+
+                    churnData = [];
+                    for (let i = 1; i < rows.length; i++) {
+                        if (rows[i][idIndex] && rows[i][idIndex].trim()) {
+                            churnData.push({
+                                id: rows[i][idIndex].trim(),
+                                name: nameIndex !== -1 ? (rows[i][nameIndex] || '').trim() : ''
+                            });
+                        }
+                    }
+
+                    document.getElementById('churnStatus').style.display = 'block';
+                    document.getElementById('churnStatus').className = 'file-status success';
+                    document.getElementById('churnStatus').innerHTML = `✅ ${churnData.length} churned customers loaded`;
+
+                    updateUI();
+                } catch (err) {
+                    document.getElementById('churnStatus').style.display = 'block';
+                    document.getElementById('churnStatus').className = 'file-status error';
+                    document.getElementById('churnStatus').innerHTML = `❌ Error: ${err.message}`;
+                }
+            };
+            reader.readAsText(file, "UTF-8");
+        }
+
+        function loadRevenueData(input) {
+            const file = input.files[0];
+            if (!file) return;
+
+            const reader = new FileReader();
+            reader.onload = function (e) {
+                try {
+                    const rows = parseCSV(e.target.result);
+                    const headers = rows[0];
+
+                    let idIndex = headers.findIndex(h => h && h.toLowerCase().includes('customerid'));
+                    let dateIndex = headers.findIndex(h => h && (h.toLowerCase().includes('rechargedate') || h.toLowerCase().includes('date')));
+                    let amountIndex = headers.findIndex(h => h && (h.toLowerCase().includes('revenue') || h.toLowerCase().includes('amount')));
+                    let pkgIndex = headers.findIndex(h => h && (h.toLowerCase().includes('commercialproduct') || h.toLowerCase().includes('package')));
+
+                    if (idIndex === -1) {
+                        throw new Error(`Column 'CustomerId' not found. Headers: ${headers.join(', ')}`);
+                    }
+
+                    revenueData = [];
+                    for (let i = 1; i < rows.length; i++) {
+                        if (rows[i][idIndex] && rows[i][idIndex].trim()) {
+                            let amount = parseFloat(rows[i][amountIndex]) || 0;
+                            revenueData.push({
+                                id: rows[i][idIndex].trim(),
+                                date: rows[i][dateIndex] ? rows[i][dateIndex].trim() : '',
+                                package: rows[i][pkgIndex] ? rows[i][pkgIndex].trim() : '',
+                                amount: amount
+                            });
+                        }
+                    }
+
+                    document.getElementById('revenueStatus').style.display = 'block';
+                    document.getElementById('revenueStatus').className = 'file-status success';
+                    document.getElementById('revenueStatus').innerHTML = `✅ ${revenueData.length} revenue records loaded`;
+
+                    updateUI();
+                } catch (err) {
+                    document.getElementById('revenueStatus').style.display = 'block';
+                    document.getElementById('revenueStatus').className = 'file-status error';
+                    document.getElementById('revenueStatus').innerHTML = `❌ Error: ${err.message}`;
+                }
+            };
+            reader.readAsText(file, "UTF-8");
+        }
+
+        function getValidRenewals() {
+            const churnIds = new Set(churnData.map(c => c.id));
+
+            return revenueData.filter(r => {
+                // Must be churned customer
+                if (!churnIds.has(r.id)) return false;
+                // Must be valid renew amount
+                if (!VALID_RENEW_AMOUNTS.has(r.amount)) return false;
+                // Apply date filter if set
+                if (currentFilterDate) {
+                    try {
+                        const recordDate = new Date(r.date);
+                        const filterDate = new Date(currentFilterDate);
+                        if (recordDate.toDateString() !== filterDate.toDateString()) return false;
+                    } catch (e) {
+                        return false;
+                    }
+                }
+                return true;
+            });
+        }
+
+        function getInvalidCharges() {
+            const churnIds = new Set(churnData.map(c => c.id));
+
+            return revenueData.filter(r => {
+                if (!churnIds.has(r.id)) return false;
+                return !VALID_RENEW_AMOUNTS.has(r.amount);
+            });
+        }
+
+        function updateUI() {
+            if (churnData.length === 0 || revenueData.length === 0) {
+                document.getElementById('statsBar').style.display = 'none';
+                document.getElementById('controls').style.display = 'none';
+                document.getElementById('resultsCard').style.display = 'none';
+                return;
+            }
+
+            const validRenewals = getValidRenewals();
+            const invalidCharges = getInvalidCharges();
+
+            document.getElementById('statsBar').style.display = 'flex';
+            document.getElementById('controls').style.display = 'flex';
+            document.getElementById('resultsCard').style.display = 'block';
+
+            document.getElementById('totalChurned').innerText = churnData.length.toLocaleString();
+            document.getElementById('totalRevenue').innerText = revenueData.length.toLocaleString();
+            document.getElementById('validRenewals').innerText = validRenewals.length.toLocaleString();
+            document.getElementById('invalidCharges').innerText = invalidCharges.length.toLocaleString();
+
+            displayResults(validRenewals);
+        }
+
+        function displayResults(renewals) {
+            const tbody = document.getElementById('tableBody');
+            document.getElementById('resultCount').innerHTML = `(${renewals.length} renewals)`;
+
+            if (renewals.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="8" class="empty-state">No valid renew recharges found for the selected criteria</td></tr>';
+                return;
+            }
+
+            let html = '';
+            renewals.forEach((renewal, idx) => {
+                const customer = churnData.find(c => c.id === renewal.id);
+                const plan = PLAN_MAP[renewal.amount] || "Renewal";
+
+                html += `<tr>
+                    <td>${idx + 1}</td>
+                    <td><strong>${renewal.id}</strong></td>
+                    <td>${customer ? customer.name : '-'}</td>
+                    <td>${renewal.date}</td>
+                    <td style="max-width: 250px; word-break: break-word;">${renewal.package || '-'}</td>
+                    <td class="amount">NPR ${renewal.amount.toLocaleString()}</td>
+                    <td><span class="renew-badge">${plan}</span></td>
+                    <td>✅ Valid Renew</td>
+                </tr>`;
+            });
+
+            tbody.innerHTML = html;
+        }
+
+        function filterByDate() {
+            const dateInput = document.getElementById('dateFilter');
+            currentFilterDate = dateInput.value;
+            updateUI();
+        }
+
+        function resetFilter() {
+            document.getElementById('dateFilter').value = '';
+            currentFilterDate = '';
+            updateUI();
+        }
+
+        function exportToCSV() {
+            const renewals = getValidRenewals();
+
+            if (renewals.length === 0) {
+                alert('No renewals to export');
+                return;
+            }
+
+            const headers = ['S.N.', 'Customer ID', 'Customer Name', 'Recharge Date', 'Package', 'Amount (NPR)', 'Plan', 'Status'];
+            const rows = [headers];
+
+            renewals.forEach((renewal, idx) => {
+                const customer = churnData.find(c => c.id === renewal.id);
+                const plan = PLAN_MAP[renewal.amount] || "Renewal";
+
+                rows.push([
+                    idx + 1,
+                    renewal.id,
+                    customer ? customer.name : '',
+                    renewal.date,
+                    renewal.package || '',
+                    renewal.amount,
+                    plan,
+                    'Valid Renew'
+                ]);
+            });
+
+            const csvContent = rows.map(row => row.map(cell => `"${cell}"`).join(',')).join('\n');
+            const blob = new Blob(["\uFEFF" + csvContent], { type: 'text/csv;charset=utf-8;' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `valid_renewals_${new Date().toISOString().split('T')[0]}.csv`;
+            a.click();
+            URL.revokeObjectURL(url);
+        }
+    </script>
+</body>
+
+</html>
