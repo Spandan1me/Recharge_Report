@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -11,20 +12,19 @@
             padding: 0;
             box-sizing: border-box;
         }
-        
+
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background: #f5f5f5;
             min-height: 100vh;
             padding: 20px;
         }
-        
+
         .container {
             max-width: 1600px;
             margin: 0 auto;
         }
-        
-        /* DishHome Brand Colors */
+
         :root {
             --dish-orange: #F36F21;
             --dish-orange-dark: #E05A1A;
@@ -37,7 +37,7 @@
             --dish-text: #333333;
             --dish-text-light: #666666;
         }
-        
+
         .header {
             text-align: center;
             margin-bottom: 30px;
@@ -46,19 +46,19 @@
             border-radius: 20px;
             color: white;
         }
-        
+
         .header h1 {
             font-size: 2.5rem;
             margin-bottom: 8px;
         }
-        
+
         .tabs {
             display: flex;
             gap: 10px;
             margin-bottom: 20px;
             flex-wrap: wrap;
         }
-        
+
         .tab-btn {
             background: white;
             border: 2px solid var(--dish-orange);
@@ -70,44 +70,44 @@
             transition: all 0.3s;
             font-weight: 600;
         }
-        
+
         .tab-btn.active {
             background: var(--dish-orange);
             color: white;
             border-color: var(--dish-orange);
         }
-        
+
         .tab-content {
             display: none;
             background: white;
             border-radius: 20px;
             padding: 25px;
-            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
         }
-        
+
         .tab-content.active {
             display: block;
         }
-        
+
         .upload-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 20px;
             margin-bottom: 30px;
         }
-        
+
         .upload-card {
             background: var(--dish-gray);
             border-radius: 16px;
             padding: 24px;
             border: 2px solid #e0e0e0;
         }
-        
+
         .upload-card h3 {
             margin-bottom: 16px;
             color: var(--dish-blue);
         }
-        
+
         .drop-zone {
             border: 2px dashed var(--dish-orange);
             border-radius: 12px;
@@ -117,42 +117,42 @@
             background: white;
             transition: all 0.3s;
         }
-        
+
         .drop-zone:hover {
             background: #FFF8F0;
             border-color: var(--dish-orange-dark);
         }
-        
+
         .drop-zone input {
             display: none;
         }
-        
+
         .file-status {
             margin-top: 12px;
             padding: 10px;
             border-radius: 8px;
             font-size: 0.85rem;
         }
-        
+
         .file-status.success {
             background: #d4edda;
             color: #155724;
             border-left: 4px solid #28a745;
         }
-        
+
         .file-status.error {
             background: #f8d7da;
             color: #721c24;
             border-left: 4px solid #dc3545;
         }
-        
+
         .stats-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
             gap: 20px;
             margin-bottom: 30px;
         }
-        
+
         .stat-card {
             background: linear-gradient(135deg, var(--dish-blue) 0%, var(--dish-blue-dark) 100%);
             color: white;
@@ -160,25 +160,25 @@
             border-radius: 16px;
             text-align: center;
             transition: transform 0.3s;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
         }
-        
+
         .stat-card:hover {
             transform: translateY(-5px);
         }
-        
+
         .stat-card h3 {
             font-size: 0.9rem;
             opacity: 0.9;
             margin-bottom: 10px;
         }
-        
+
         .stat-card .number {
             font-size: 2rem;
             font-weight: bold;
             margin: 10px 0;
         }
-        
+
         .filters-bar {
             display: flex;
             gap: 15px;
@@ -190,20 +190,21 @@
             border-radius: 12px;
             border: 1px solid #e0e0e0;
         }
-        
+
         .filters-bar label {
             font-weight: 600;
             color: var(--dish-blue);
         }
-        
-        .filters-bar select, .filters-bar input {
+
+        .filters-bar select,
+        .filters-bar input {
             padding: 8px 15px;
             border: 1px solid #ddd;
             border-radius: 8px;
             font-size: 0.9rem;
             background: white;
         }
-        
+
         .btn {
             background: var(--dish-orange);
             color: white;
@@ -214,45 +215,45 @@
             font-weight: 500;
             transition: background 0.3s;
         }
-        
+
         .btn:hover {
             background: var(--dish-orange-dark);
         }
-        
+
         .btn-outline {
             background: white;
             color: var(--dish-orange);
             border: 2px solid var(--dish-orange);
         }
-        
+
         .btn-outline:hover {
             background: var(--dish-orange);
             color: white;
         }
-        
+
         .btn-blue {
             background: var(--dish-blue);
         }
-        
+
         .btn-blue:hover {
             background: var(--dish-blue-dark);
         }
-        
+
         .chart-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
             gap: 25px;
             margin-bottom: 30px;
         }
-        
+
         .chart-card {
             background: white;
             border-radius: 16px;
             padding: 20px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
             border: 1px solid #e8e8e8;
         }
-        
+
         .chart-card h3 {
             margin-bottom: 15px;
             color: var(--dish-blue);
@@ -260,12 +261,12 @@
             border-left: 4px solid var(--dish-orange);
             padding-left: 12px;
         }
-        
+
         .chart-container {
             position: relative;
             height: 320px;
         }
-        
+
         .table-wrapper {
             overflow-x: auto;
             max-height: 550px;
@@ -274,19 +275,20 @@
             border-radius: 12px;
             border: 1px solid #e0e0e0;
         }
-        
+
         table {
             width: 100%;
             border-collapse: collapse;
             font-size: 0.85rem;
         }
-        
-        th, td {
+
+        th,
+        td {
             padding: 12px;
             text-align: left;
             border-bottom: 1px solid #e8eaed;
         }
-        
+
         th {
             background: var(--dish-blue);
             color: white;
@@ -294,12 +296,13 @@
             top: 0;
             font-weight: 600;
         }
-        
+
         tr:hover {
             background: #FFF8F0;
         }
-        
-        .bu-code, .manager-code {
+
+        .bu-code,
+        .manager-code {
             font-family: monospace;
             background: #FFF3E0;
             padding: 4px 8px;
@@ -307,32 +310,59 @@
             font-size: 0.75rem;
             font-weight: 600;
         }
-        
+
         .manager-code {
             background: #E8F0FE;
             color: var(--dish-blue);
         }
-        
-        .renew-badge {
+
+        .period-badge {
             background: var(--dish-orange);
             color: white;
             padding: 4px 10px;
             border-radius: 20px;
             font-size: 0.7rem;
             font-weight: 600;
+            display: inline-block;
         }
-        
+
+        .period-12 {
+            background: #28a745;
+        }
+
+        .period-6 {
+            background: #17a2b8;
+        }
+
+        .period-3 {
+            background: #ffc107;
+            color: #333;
+        }
+
+        .period-1 {
+            background: #dc3545;
+        }
+
         .amount {
             font-weight: 600;
             color: var(--dish-blue);
         }
-        
+
+        .duplicate-badge {
+            background: #ffc107;
+            color: #333;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-size: 0.7rem;
+            margin-left: 5px;
+        }
+
         .empty-state {
             text-align: center;
             padding: 60px;
             color: var(--dish-text-light);
         }
-        
+
         .info-box {
             background: linear-gradient(135deg, #FFF8F0 0%, #FFF0E0 100%);
             padding: 20px;
@@ -341,33 +371,36 @@
             margin-top: 20px;
             border-left: 4px solid var(--dish-orange);
         }
-        
+
         @media (max-width: 768px) {
             .chart-grid {
                 grid-template-columns: 1fr;
             }
+
             .stats-grid {
                 grid-template-columns: 1fr 1fr;
             }
+
             .upload-grid {
                 grid-template-columns: 1fr;
             }
         }
     </style>
 </head>
+
 <body>
     <div class="container">
         <div class="header">
             <h1>🔄 DishHome Renew Recharge Analytics</h1>
-            <p>Churn Recovery Dashboard | Manager & Dealer Wise Analytics</p>
+            <p>Churn Recovery Dashboard | Auto-detect Highest Plan for Duplicate Customers</p>
         </div>
-        
+
         <div class="tabs">
             <button class="tab-btn active" onclick="showTab('upload')">📁 Upload Data</button>
             <button class="tab-btn" onclick="showTab('dashboard')">📈 Dashboard</button>
             <button class="tab-btn" onclick="showTab('report')">📋 Detailed Report</button>
         </div>
-        
+
         <!-- Tab 1: Upload -->
         <div id="upload-tab" class="tab-content active">
             <div class="upload-grid">
@@ -377,28 +410,30 @@
                         <input type="file" id="churnInput" accept=".csv" onchange="loadChurnData(this)">
                         <div style="font-size: 3rem;">📊</div>
                         <div>Click to upload Churn CSV</div>
-                        <div style="font-size: 0.75rem; margin-top: 8px;">Requires: <strong>SerialNumber2</strong>, CustomerName, BU Code, Manager/Area</div>
+                        <div style="font-size: 0.75rem; margin-top: 8px;">Requires: <strong>SerialNumber2</strong>,
+                            CustomerName, BU Code, Manager/Area</div>
                     </div>
                     <div id="churnStatus" class="file-status" style="display: none;"></div>
                 </div>
-                
+
                 <div class="upload-card">
                     <h3>💰 Revenue Data</h3>
                     <div class="drop-zone" onclick="document.getElementById('revenueInput').click()">
                         <input type="file" id="revenueInput" accept=".csv" onchange="loadRevenueData(this)">
                         <div style="font-size: 3rem;">💳</div>
                         <div>Click to upload Revenue CSV</div>
-                        <div style="font-size: 0.75rem; margin-top: 8px;">Requires: <strong>CustomerId</strong>, RechargeDate, Revenue</div>
+                        <div style="font-size: 0.75rem; margin-top: 8px;">Requires: <strong>CustomerId</strong>,
+                            RechargeDate, Revenue</div>
                     </div>
                     <div id="revenueStatus" class="file-status" style="display: none;"></div>
                 </div>
             </div>
             <div class="info-box">
-                <p>✅ Upload both files to enable Dashboard and Report</p>
-                <p style="font-size: 0.8rem; margin-top: 8px;">The app will look for Manager/Area column (SalesOfficer, RegionalOfficer, Area, Manager)</p>
+                <p>✅ <strong>Duplicate Detection:</strong> If same customer recharges multiple times, the system
+                    automatically selects the <strong>highest value plan</strong> (12M > 6M > 3M > 1M)</p>
             </div>
         </div>
-        
+
         <!-- Tab 2: Dashboard -->
         <div id="dashboard-tab" class="tab-content">
             <div class="filters-bar">
@@ -423,22 +458,22 @@
                 <button class="btn btn-outline" onclick="resetDashboardFilters()">Reset</button>
                 <button class="btn btn-blue" onclick="exportDashboardData()">📥 Export</button>
             </div>
-            
+
             <div class="stats-grid">
                 <div class="stat-card">
                     <h3>Total Renewals</h3>
                     <div class="number" id="totalRenewals">0</div>
-                    <div class="trend" id="renewalTrend">+0% vs last period</div>
+                    <div class="trend" id="renewalTrend">Unique Customers</div>
                 </div>
                 <div class="stat-card">
                     <h3>Total Revenue</h3>
                     <div class="number" id="totalRevenue">NPR 0</div>
-                    <div class="trend" id="revenueTrend">+0% vs last period</div>
+                    <div class="trend" id="revenueTrend">from highest plans</div>
                 </div>
                 <div class="stat-card">
                     <h3>Avg Ticket Size</h3>
                     <div class="number" id="avgTicket">NPR 0</div>
-                    <div class="trend" id="ticketTrend">-</div>
+                    <div class="trend" id="ticketTrend">per customer</div>
                 </div>
                 <div class="stat-card">
                     <h3>Recovery Rate</h3>
@@ -446,7 +481,7 @@
                     <div class="trend" id="recoveryTrend">of churned customers</div>
                 </div>
             </div>
-            
+
             <div class="chart-grid">
                 <div class="chart-card">
                     <h3>📈 Renewals Over Time</h3>
@@ -467,24 +502,33 @@
                     </div>
                 </div>
                 <div class="chart-card">
-                    <h3>🎯 Top 10 BU Codes by Renewals</h3>
+                    <h3>🎯 Plan Period Distribution</h3>
                     <div class="chart-container">
-                        <canvas id="buBarChart"></canvas>
+                        <canvas id="periodDoughnutChart"></canvas>
                     </div>
                 </div>
             </div>
         </div>
-        
+
         <!-- Tab 3: Detailed Report -->
         <div id="report-tab" class="tab-content">
             <div class="filters-bar">
                 <label>🔍 Search:</label>
-                <input type="text" id="searchInput" placeholder="Customer ID, Name, BU Code, Manager..." onkeyup="filterReport()">
+                <input type="text" id="searchInput" placeholder="Customer ID, Name, BU Code, Manager..."
+                    onkeyup="filterReport()">
                 <label>📅 Date:</label>
                 <input type="date" id="reportDateFilter" onchange="filterReport()">
                 <label>👔 Manager:</label>
                 <select id="reportManagerFilter" onchange="filterReport()">
                     <option value="all">All Managers</option>
+                </select>
+                <label>📆 Period:</label>
+                <select id="periodFilter" onchange="filterReport()">
+                    <option value="all">All Periods</option>
+                    <option value="1 Month">1 Month</option>
+                    <option value="3 Months">3 Months</option>
+                    <option value="6 Months">6 Months</option>
+                    <option value="12 Months">12 Months</option>
                 </select>
                 <button class="btn btn-blue" onclick="exportReportToCSV()">📥 Export to CSV</button>
             </div>
@@ -500,57 +544,52 @@
                             <th>Recharge Date</th>
                             <th>Package</th>
                             <th>Amount (NPR)</th>
-                            <th>Plan</th>
+                            <th>Period</th>
                             <th>Status</th>
                         </tr>
                     </thead>
                     <tbody id="reportBody">
-                        <tr><td colspan="10" class="empty-state">Upload both files to see report</td></tr>
+                        <tr>
+                            <td colspan="10" class="empty-state">Upload both files to see report</td>
+                        </tr>
                     </tbody>
                 </table>
             </div>
         </div>
     </div>
-    
+
     <script>
-        // DishHome Price List
-        const VALID_RENEW_AMOUNTS = new Set([
-            1000, 2700, 4800, 6999, 1200, 2950, 5250, 8500,
-            1450, 3625, 6725, 11500, 1600, 4250, 8181, 13550,
-            1169, 3207, 5814, 9027, 1369, 3457, 6264, 10528,
-            1619, 4132, 7739, 13528, 1769, 4757, 9195, 15578,
-            1170, 3210, 5820, 9039, 1370, 3460, 6270, 10540,
-            1620, 4135, 7745, 13540, 1770, 4760, 9201, 15590,
-            1339, 3717, 6834, 11067, 1539, 3967, 7284, 12568,
-            1789, 4642, 8759, 15568, 1939, 5267, 10215, 17618
-        ]);
-        
-        const CHART_COLORS = ['#F36F21', '#1C2E54', '#FF8C42', '#2A4170', '#E05A1A', '#142340', '#FFA366', '#3A5588', '#F36F21', '#1C2E54'];
-        
-        const PLAN_MAP = {
-            1000: "50M-1M", 2700: "50M-3M", 4800: "50M-6M", 6999: "50M-12M",
-            1200: "100M-1M", 2950: "100M-3M", 5250: "100M-6M", 8500: "100M-12M",
-            1450: "200M-1M", 3625: "200M-3M", 6725: "200M-6M", 11500: "200M-12M",
-            1600: "300M-1M", 4250: "300M-3M", 8181: "300M-6M", 13550: "300M-12M",
-            1169: "DTH50-1M", 3207: "DTH50-3M", 5814: "DTH50-6M", 9027: "DTH50-12M",
-            1369: "DTH100-1M", 3457: "DTH100-3M", 6264: "DTH100-6M", 10528: "DTH100-12M",
-            1619: "DTH200-1M", 4132: "DTH200-3M", 7739: "DTH200-6M", 13528: "DTH200-12M",
-            1769: "DTH300-1M", 4757: "DTH300-3M", 9195: "DTH300-6M", 15578: "DTH300-12M",
-            1170: "IPTV50-1M", 3210: "IPTV50-3M", 5820: "IPTV50-6M", 9039: "IPTV50-12M",
-            1370: "IPTV100-1M", 3460: "IPTV100-3M", 6270: "IPTV100-6M", 10540: "IPTV100-12M",
-            1620: "IPTV200-1M", 4135: "IPTV200-3M", 7745: "IPTV200-6M", 13540: "IPTV200-12M",
-            1770: "IPTV300-1M", 4760: "IPTV300-3M", 9201: "IPTV300-6M", 15590: "IPTV300-12M",
-            1339: "TRIPLE50-1M", 3717: "TRIPLE50-3M", 6834: "TRIPLE50-6M", 11067: "TRIPLE50-12M",
-            1539: "TRIPLE100-1M", 3967: "TRIPLE100-3M", 7284: "TRIPLE100-6M", 12568: "TRIPLE100-12M",
-            1789: "TRIPLE200-1M", 4642: "TRIPLE200-3M", 8759: "TRIPLE200-6M", 15568: "TRIPLE200-12M",
-            1939: "TRIPLE300-1M", 5267: "TRIPLE300-3M", 10215: "TRIPLE300-6M", 17618: "TRIPLE300-12M"
+        // DishHome Price List with Period Mapping
+        const PRICE_TO_PERIOD = {
+            1000: "1 Month", 2700: "3 Months", 4800: "6 Months", 6999: "12 Months",
+            1200: "1 Month", 2950: "3 Months", 5250: "6 Months", 8500: "12 Months",
+            1450: "1 Month", 3625: "3 Months", 6725: "6 Months", 11500: "12 Months",
+            1600: "1 Month", 4250: "3 Months", 8181: "6 Months", 13550: "12 Months",
+            1169: "1 Month", 3207: "3 Months", 5814: "6 Months", 9027: "12 Months",
+            1369: "1 Month", 3457: "3 Months", 6264: "6 Months", 10528: "12 Months",
+            1619: "1 Month", 4132: "3 Months", 7739: "6 Months", 13528: "12 Months",
+            1769: "1 Month", 4757: "3 Months", 9195: "6 Months", 15578: "12 Months",
+            1170: "1 Month", 3210: "3 Months", 5820: "6 Months", 9039: "12 Months",
+            1370: "1 Month", 3460: "3 Months", 6270: "6 Months", 10540: "12 Months",
+            1620: "1 Month", 4135: "3 Months", 7745: "6 Months", 13540: "12 Months",
+            1770: "1 Month", 4760: "3 Months", 9201: "6 Months", 15590: "12 Months",
+            1339: "1 Month", 3717: "3 Months", 6834: "6 Months", 11067: "12 Months",
+            1539: "1 Month", 3967: "3 Months", 7284: "6 Months", 12568: "12 Months",
+            1789: "1 Month", 4642: "3 Months", 8759: "6 Months", 15568: "12 Months",
+            1939: "1 Month", 5267: "3 Months", 10215: "6 Months", 17618: "12 Months"
         };
-        
+
+        const PERIOD_ORDER = { "1 Month": 1, "3 Months": 3, "6 Months": 6, "12 Months": 12 };
+        const CHART_COLORS = ['#F36F21', '#1C2E54', '#FF8C42', '#2A4170', '#E05A1A', '#142340', '#FFA366', '#3A5588'];
+        const PERIOD_COLORS = { "1 Month": "#dc3545", "3 Months": "#ffc107", "6 Months": "#17a2b8", "12 Months": "#28a745" };
+
         let churnData = [];
         let revenueData = [];
-        let renewalsData = [];
-        let lineChart, pieChart, managerBarChart, buBarChart;
-        
+        let renewalsData = [];      // After deduplication - highest plan per customer
+        let allRenewalsRaw = [];     // All raw renewals before dedup
+
+        let lineChart, pieChart, managerBarChart, periodDoughnutChart;
+
         function parseCSV(text) {
             const rows = [];
             const lines = text.split(/\r?\n/);
@@ -571,31 +610,29 @@
             }
             return rows;
         }
-        
+
         function loadChurnData(input) {
             const file = input.files[0];
             if (!file) return;
             const reader = new FileReader();
-            reader.onload = function(e) {
+            reader.onload = function (e) {
                 try {
                     const rows = parseCSV(e.target.result);
                     const headers = rows[0];
-                    
+
                     let idIndex = headers.findIndex(h => h && (h.toLowerCase().includes('serialnumber2') || h.toLowerCase().includes('customerid')));
                     let nameIndex = headers.findIndex(h => h && h.toLowerCase().includes('name'));
                     let buIndex = headers.findIndex(h => {
                         const lower = h.toLowerCase();
                         return lower.includes('bu') || lower.includes('dealer') || lower.includes('subdealer') || lower.includes('colonial');
                     });
-                    
-                    // Manager/Area column - look for SalesOfficer, RegionalOfficer, Area, Manager
                     let managerIndex = headers.findIndex(h => {
                         const lower = h.toLowerCase();
                         return lower.includes('salesofficer') || lower.includes('sales officer') ||
-                               lower.includes('regionalofficer') || lower.includes('area') ||
-                               lower.includes('manager') || lower.includes('regional');
+                            lower.includes('regionalofficer') || lower.includes('area') ||
+                            lower.includes('manager') || lower.includes('regional');
                     });
-                    
+
                     churnData = [];
                     for (let i = 1; i < rows.length; i++) {
                         if (rows[i][idIndex] && rows[i][idIndex].trim()) {
@@ -607,12 +644,12 @@
                             });
                         }
                     }
-                    
+
                     document.getElementById('churnStatus').style.display = 'block';
                     document.getElementById('churnStatus').className = 'file-status success';
-                    document.getElementById('churnStatus').innerHTML = `✅ ${churnData.length} churned customers loaded | Manager column: ${managerIndex !== -1 ? 'Found ✓' : 'Not found'}`;
+                    document.getElementById('churnStatus').innerHTML = `✅ ${churnData.length} churned customers loaded`;
                     processRenewals();
-                } catch(err) {
+                } catch (err) {
                     document.getElementById('churnStatus').style.display = 'block';
                     document.getElementById('churnStatus').className = 'file-status error';
                     document.getElementById('churnStatus').innerHTML = `❌ Error: ${err.message}`;
@@ -620,12 +657,12 @@
             };
             reader.readAsText(file, "UTF-8");
         }
-        
+
         function loadRevenueData(input) {
             const file = input.files[0];
             if (!file) return;
             const reader = new FileReader();
-            reader.onload = function(e) {
+            reader.onload = function (e) {
                 try {
                     const rows = parseCSV(e.target.result);
                     const headers = rows[0];
@@ -633,7 +670,7 @@
                     let dateIndex = headers.findIndex(h => h && (h.toLowerCase().includes('rechargedate') || h.toLowerCase().includes('date')));
                     let amountIndex = headers.findIndex(h => h && (h.toLowerCase().includes('revenue') || h.toLowerCase().includes('amount')));
                     let pkgIndex = headers.findIndex(h => h && (h.toLowerCase().includes('commercialproduct') || h.toLowerCase().includes('package')));
-                    
+
                     revenueData = [];
                     for (let i = 1; i < rows.length; i++) {
                         if (rows[i][idIndex] && rows[i][idIndex].trim()) {
@@ -644,7 +681,7 @@
                                 parsedDate = new Date(dateStr);
                                 if (isNaN(parsedDate.getTime())) {
                                     let parts = dateStr.split(/[-/]/);
-                                    if (parts.length === 3) parsedDate = new Date(parts[0], parts[1]-1, parts[2]);
+                                    if (parts.length === 3) parsedDate = new Date(parts[0], parts[1] - 1, parts[2]);
                                 }
                             }
                             revenueData.push({
@@ -660,7 +697,7 @@
                     document.getElementById('revenueStatus').className = 'file-status success';
                     document.getElementById('revenueStatus').innerHTML = `✅ ${revenueData.length} revenue records loaded`;
                     processRenewals();
-                } catch(err) {
+                } catch (err) {
                     document.getElementById('revenueStatus').style.display = 'block';
                     document.getElementById('revenueStatus').className = 'file-status error';
                     document.getElementById('revenueStatus').innerHTML = `❌ Error: ${err.message}`;
@@ -668,24 +705,37 @@
             };
             reader.readAsText(file, "UTF-8");
         }
-        
+
         function processRenewals() {
             if (churnData.length === 0 || revenueData.length === 0) return;
-            
+
             const churnMap = new Map();
             churnData.forEach(c => churnMap.set(c.id, c));
-            
-            renewalsData = revenueData.filter(r => {
+
+            // Get all valid renewals (churned customers with valid amounts)
+            allRenewalsRaw = revenueData.filter(r => {
                 if (!churnMap.has(r.id)) return false;
-                if (!VALID_RENEW_AMOUNTS.has(r.amount)) return false;
+                if (!PRICE_TO_PERIOD[r.amount]) return false;
                 return true;
             }).map(r => ({
                 ...r,
                 customer: churnMap.get(r.id),
-                plan: PLAN_MAP[r.amount] || "Other"
+                period: PRICE_TO_PERIOD[r.amount],
+                periodOrder: PERIOD_ORDER[PRICE_TO_PERIOD[r.amount]]
             }));
-            
-            // Update Manager filter dropdown
+
+            // DEDUPLICATION: For each customer, keep ONLY the highest period plan
+            const customerBestPlan = new Map();
+            allRenewalsRaw.forEach(renewal => {
+                const existing = customerBestPlan.get(renewal.id);
+                if (!existing || renewal.periodOrder > existing.periodOrder) {
+                    customerBestPlan.set(renewal.id, renewal);
+                }
+            });
+
+            renewalsData = Array.from(customerBestPlan.values());
+
+            // Update filters
             const uniqueManagers = [...new Set(renewalsData.map(r => r.customer.manager).filter(m => m))];
             const managerSelect = document.getElementById('managerFilter');
             const reportManagerSelect = document.getElementById('reportManagerFilter');
@@ -695,26 +745,25 @@
                 managerSelect.innerHTML += `<option value="${mgr}">${mgr}</option>`;
                 reportManagerSelect.innerHTML += `<option value="${mgr}">${mgr}</option>`;
             });
-            
-            // Update BU filter dropdown
+
             const uniqueBus = [...new Set(renewalsData.map(r => r.customer.buCode).filter(b => b))];
             const buSelect = document.getElementById('buFilter');
             buSelect.innerHTML = '<option value="all">All BU Codes</option>';
             uniqueBus.sort().forEach(bu => {
                 buSelect.innerHTML += `<option value="${bu}">${bu}</option>`;
             });
-            
+
             updateDashboard();
             updateReportTable();
             showTab('dashboard');
         }
-        
+
         function filterRenewalsByFilters(startDate, endDate, manager, buCode) {
             let filtered = [...renewalsData];
             if (startDate && endDate) {
                 const start = new Date(startDate);
                 const end = new Date(endDate);
-                end.setHours(23,59,59);
+                end.setHours(23, 59, 59);
                 filtered = filtered.filter(r => r.date && r.date >= start && r.date <= end);
             }
             if (manager && manager !== 'all') {
@@ -725,28 +774,28 @@
             }
             return filtered;
         }
-        
+
         function updateDashboard() {
             if (renewalsData.length === 0) return;
-            
+
             let startDate = document.getElementById('startDate').value;
             let endDate = document.getElementById('endDate').value;
             let manager = document.getElementById('managerFilter').value;
             let buCode = document.getElementById('buFilter').value;
             let groupBy = document.getElementById('groupBy').value;
-            
+
             let filtered = filterRenewalsByFilters(startDate, endDate, manager, buCode);
-            
+
             const totalRenewals = filtered.length;
             const totalRev = filtered.reduce((sum, r) => sum + r.amount, 0);
             const avgTicket = totalRenewals > 0 ? totalRev / totalRenewals : 0;
             const recoveryRate = churnData.length > 0 ? (totalRenewals / churnData.length * 100).toFixed(1) : 0;
-            
+
             document.getElementById('totalRenewals').innerText = totalRenewals.toLocaleString();
             document.getElementById('totalRevenue').innerHTML = 'NPR ' + Math.round(totalRev).toLocaleString();
             document.getElementById('avgTicket').innerHTML = 'NPR ' + Math.round(avgTicket).toLocaleString();
             document.getElementById('recoveryRate').innerText = recoveryRate + '%';
-            
+
             // Line Chart
             const timeData = {};
             filtered.forEach(r => {
@@ -754,7 +803,7 @@
                 let key;
                 if (groupBy === 'day') key = r.date.toISOString().split('T')[0];
                 else if (groupBy === 'month') key = r.date.toISOString().substring(0, 7);
-                else key = `W${Math.ceil(r.date.getDate()/7)}/${r.date.getMonth()+1}`;
+                else key = `W${Math.ceil(r.date.getDate() / 7)}/${r.date.getMonth() + 1}`;
                 timeData[key] = (timeData[key] || 0) + 1;
             });
             const sortedKeys = Object.keys(timeData).sort();
@@ -762,60 +811,60 @@
             const lineCtx = document.getElementById('lineChart').getContext('2d');
             lineChart = new Chart(lineCtx, {
                 type: 'line',
-                data: { labels: sortedKeys, datasets: [{ label: 'Renewals', data: sortedKeys.map(k => timeData[k]), borderColor: '#F36F21', backgroundColor: 'rgba(243,111,33,0.1)', fill: true, tension: 0.4, pointBackgroundColor: '#F36F21', pointBorderColor: '#1C2E54', pointRadius: 5 }] },
+                data: { labels: sortedKeys, datasets: [{ label: 'Renewals (Unique Customers)', data: sortedKeys.map(k => timeData[k]), borderColor: '#F36F21', backgroundColor: 'rgba(243,111,33,0.1)', fill: true, tension: 0.4, pointBackgroundColor: '#F36F21', pointBorderColor: '#1C2E54', pointRadius: 5 }] },
                 options: { responsive: true, maintainAspectRatio: false }
             });
-            
-            // Pie Chart
-            const planRevenue = {};
-            filtered.forEach(r => { planRevenue[r.plan] = (planRevenue[r.plan] || 0) + r.amount; });
+
+            // Pie Chart - Revenue by Period
+            const periodRevenue = { "1 Month": 0, "3 Months": 0, "6 Months": 0, "12 Months": 0 };
+            filtered.forEach(r => { periodRevenue[r.period] = (periodRevenue[r.period] || 0) + r.amount; });
             if (pieChart) pieChart.destroy();
             const pieCtx = document.getElementById('pieChart').getContext('2d');
             pieChart = new Chart(pieCtx, {
                 type: 'pie',
-                data: { labels: Object.keys(planRevenue), datasets: [{ data: Object.values(planRevenue), backgroundColor: CHART_COLORS, borderWidth: 0 }] },
+                data: { labels: Object.keys(periodRevenue).filter(p => periodRevenue[p] > 0), datasets: [{ data: Object.values(periodRevenue).filter(v => v > 0), backgroundColor: ['#dc3545', '#ffc107', '#17a2b8', '#28a745'], borderWidth: 0 }] },
                 options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { position: 'right' } } }
             });
-            
+
             // Manager Bar Chart
             const managerRenewals = {};
             filtered.forEach(r => { if (r.customer.manager) managerRenewals[r.customer.manager] = (managerRenewals[r.customer.manager] || 0) + 1; });
-            const topManagers = Object.entries(managerRenewals).sort((a,b) => b[1] - a[1]).slice(0,10);
+            const topManagers = Object.entries(managerRenewals).sort((a, b) => b[1] - a[1]).slice(0, 10);
             if (managerBarChart) managerBarChart.destroy();
             const managerCtx = document.getElementById('managerBarChart').getContext('2d');
             managerBarChart = new Chart(managerCtx, {
                 type: 'bar',
-                data: { labels: topManagers.map(m => m[0].length > 20 ? m[0].substring(0,20)+'...' : m[0]), datasets: [{ label: 'Renewals', data: topManagers.map(m => m[1]), backgroundColor: '#F36F21', borderRadius: 8 }] },
-                options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { position: 'top' } } }
+                data: { labels: topManagers.map(m => m[0].length > 20 ? m[0].substring(0, 20) + '...' : m[0]), datasets: [{ label: 'Renewals', data: topManagers.map(m => m[1]), backgroundColor: '#F36F21', borderRadius: 8 }] },
+                options: { responsive: true, maintainAspectRatio: false }
             });
-            
-            // BU Bar Chart
-            const buRenewals = {};
-            filtered.forEach(r => { if (r.customer.buCode) buRenewals[r.customer.buCode] = (buRenewals[r.customer.buCode] || 0) + 1; });
-            const topBus = Object.entries(buRenewals).sort((a,b) => b[1] - a[1]).slice(0,10);
-            if (buBarChart) buBarChart.destroy();
-            const buCtx = document.getElementById('buBarChart').getContext('2d');
-            buBarChart = new Chart(buCtx, {
-                type: 'bar',
-                data: { labels: topBus.map(b => b[0]), datasets: [{ label: 'Renewals', data: topBus.map(b => b[1]), backgroundColor: '#1C2E54', borderRadius: 8 }] },
-                options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { position: 'top' } } }
+
+            // Period Doughnut Chart
+            const periodCounts = { "1 Month": 0, "3 Months": 0, "6 Months": 0, "12 Months": 0 };
+            filtered.forEach(r => { periodCounts[r.period] = (periodCounts[r.period] || 0) + 1; });
+            if (periodDoughnutChart) periodDoughnutChart.destroy();
+            const doughnutCtx = document.getElementById('periodDoughnutChart').getContext('2d');
+            periodDoughnutChart = new Chart(doughnutCtx, {
+                type: 'doughnut',
+                data: { labels: Object.keys(periodCounts).filter(p => periodCounts[p] > 0), datasets: [{ data: Object.values(periodCounts).filter(v => v > 0), backgroundColor: ['#dc3545', '#ffc107', '#17a2b8', '#28a745'], borderWidth: 0, cutout: '60%' }] },
+                options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { position: 'right' } } }
             });
         }
-        
+
         function updateReportTable() {
             const tbody = document.getElementById('reportBody');
             if (renewalsData.length === 0) {
-                tbody.innerHTML = '</table><td colspan="10" class="empty-state">Upload both files to see report</td></tr>';
+                tbody.innerHTML = '<tr><td colspan="10" class="empty-state">Upload both files to see report</td></tr>';
                 return;
             }
             let filtered = [...renewalsData];
             const searchTerm = document.getElementById('searchInput')?.value.toLowerCase() || '';
             const dateFilter = document.getElementById('reportDateFilter')?.value || '';
             const managerFilter = document.getElementById('reportManagerFilter')?.value || 'all';
-            
+            const periodFilter = document.getElementById('periodFilter')?.value || 'all';
+
             if (searchTerm) {
-                filtered = filtered.filter(r => 
-                    r.id.toLowerCase().includes(searchTerm) || 
+                filtered = filtered.filter(r =>
+                    r.id.toLowerCase().includes(searchTerm) ||
                     (r.customer.name || '').toLowerCase().includes(searchTerm) ||
                     (r.customer.buCode || '').toLowerCase().includes(searchTerm) ||
                     (r.customer.manager || '').toLowerCase().includes(searchTerm)
@@ -827,11 +876,20 @@
             if (managerFilter !== 'all') {
                 filtered = filtered.filter(r => r.customer.manager === managerFilter);
             }
-            
+            if (periodFilter !== 'all') {
+                filtered = filtered.filter(r => r.period === periodFilter);
+            }
+
             let html = '';
             filtered.forEach((r, idx) => {
+                let periodClass = '';
+                if (r.period === '12 Months') periodClass = 'period-12';
+                else if (r.period === '6 Months') periodClass = 'period-6';
+                else if (r.period === '3 Months') periodClass = 'period-3';
+                else periodClass = 'period-1';
+
                 html += `<tr>
-                    <td>${idx+1}</td>
+                    <td>${idx + 1}</td>
                     <td><strong>${r.id}</strong></td>
                     <td>${r.customer.name || '-'}</td>
                     <td><span class="manager-code">${r.customer.manager || '-'}</span></td>
@@ -839,15 +897,15 @@
                     <td>${r.date ? r.date.toISOString().split('T')[0] : r.dateStr}</td>
                     <td style="max-width:200px;word-break:break-word;">${r.package || '-'}</td>
                     <td class="amount">NPR ${r.amount.toLocaleString()}</td>
-                    <td><span class="renew-badge">${r.plan}</span></td>
+                    <td><span class="period-badge ${periodClass}">${r.period}</span></td>
                     <td>✅ Valid Renew</td>
                 </tr>`;
             });
             tbody.innerHTML = html || '<tr><td colspan="10" class="empty-state">No matching records</td></tr>';
         }
-        
+
         function filterReport() { updateReportTable(); }
-        
+
         function resetDashboardFilters() {
             document.getElementById('startDate').value = '';
             document.getElementById('endDate').value = '';
@@ -855,24 +913,24 @@
             document.getElementById('buFilter').value = 'all';
             updateDashboard();
         }
-        
+
         function exportDashboardData() {
             let startDate = document.getElementById('startDate').value;
             let endDate = document.getElementById('endDate').value;
             let manager = document.getElementById('managerFilter').value;
             let buCode = document.getElementById('buFilter').value;
             let filtered = filterRenewalsByFilters(startDate, endDate, manager, buCode);
-            const headers = ['Customer ID', 'Customer Name', 'Manager/Area', 'BU Code', 'Recharge Date', 'Package', 'Amount (NPR)', 'Plan'];
+            const headers = ['Customer ID', 'Customer Name', 'Manager/Area', 'BU Code', 'Recharge Date', 'Package', 'Amount (NPR)', 'Period'];
             const rows = [headers];
             filtered.forEach(r => {
                 rows.push([
                     r.id, r.customer.name || '', r.customer.manager || '', r.customer.buCode || '',
                     r.date ? r.date.toISOString().split('T')[0] : r.dateStr,
-                    r.package || '', r.amount, r.plan
+                    r.package || '', r.amount, r.period
                 ]);
             });
             const csv = rows.map(row => row.map(cell => `"${cell}"`).join(',')).join('\n');
-            const blob = new Blob(["\uFEFF" + csv], {type: 'text/csv'});
+            const blob = new Blob(["\uFEFF" + csv], { type: 'text/csv' });
             const url = URL.createObjectURL(blob);
             const a = document.createElement('a');
             a.href = url;
@@ -880,23 +938,23 @@
             a.click();
             URL.revokeObjectURL(url);
         }
-        
+
         function exportReportToCSV() {
-            const headers = ['S.N.', 'Customer ID', 'Customer Name', 'Manager/Area', 'BU Code', 'Recharge Date', 'Package', 'Amount (NPR)', 'Plan', 'Status'];
+            const headers = ['S.N.', 'Customer ID', 'Customer Name', 'Manager/Area', 'BU Code', 'Recharge Date', 'Package', 'Amount (NPR)', 'Period', 'Status'];
             const rows = [headers];
             const tableRows = document.querySelectorAll('#reportBody tr');
             tableRows.forEach((row, idx) => {
                 const cols = row.querySelectorAll('td');
                 if (cols.length > 0 && !cols[0].innerText.includes('No matching')) {
                     rows.push([
-                        idx+1, cols[0]?.innerText || '', cols[1]?.innerText || '', cols[2]?.innerText || '',
+                        idx + 1, cols[0]?.innerText || '', cols[1]?.innerText || '', cols[2]?.innerText || '',
                         cols[3]?.innerText || '', cols[4]?.innerText || '', cols[5]?.innerText || '',
                         cols[6]?.innerText || '', cols[7]?.innerText || '', cols[8]?.innerText || ''
                     ]);
                 }
             });
             const csv = rows.map(row => row.map(cell => `"${cell}"`).join(',')).join('\n');
-            const blob = new Blob(["\uFEFF" + csv], {type: 'text/csv'});
+            const blob = new Blob(["\uFEFF" + csv], { type: 'text/csv' });
             const url = URL.createObjectURL(blob);
             const a = document.createElement('a');
             a.href = url;
@@ -904,7 +962,7 @@
             a.click();
             URL.revokeObjectURL(url);
         }
-        
+
         function showTab(tab) {
             document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
             document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
@@ -923,4 +981,5 @@
         }
     </script>
 </body>
+
 </html>
